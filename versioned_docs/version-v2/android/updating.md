@@ -22,7 +22,7 @@ Then from Android Studio click the "Sync Project with Gradle Files" button.
 
 ## Updating Android Project
 
-To update the base structure of your Android project, view the [android-template](https://github.com/ionic-team/capacitor/tree/master/android-template) project in the Capacitor repo, under the tag corresponding to the latest stable release of Capacitor. The core project is kept simple on purpose: it shouldn't take much time to see what is different from the core project and your project.
+To update the base structure of your Android project, view the [android-template](https://github.com/ionic-team/capacitor/tree/2.x/android-template) project in the Capacitor repo, under the tag corresponding to the latest stable release of Capacitor. The core project is kept simple on purpose: it shouldn't take much time to see what is different from the core project and your project.
 
 ### From 1.0.0 to 1.1.0
 
@@ -30,13 +30,13 @@ Recommended change:
 
 - Update `.gitignore` file inside `android` folder with [this changes](https://github.com/ionic-team/capacitor/commit/e27586780baed231c09f2737bb94a9338aab5a03#diff-15c65f143d85c95277307da1bdd0528e)
 
-### From <= 1.3.0 to 1.4.0
+### From &lt;= 1.3.0 to 1.4.0
 
 Recommended change:
 
 - Update `strings.xml` file inside `android/app/src/main/res/values/` folder with [this change](https://github.com/ionic-team/capacitor/commit/ed6647b35a8da08d26a7ff13cc9f4fd918b923a0#diff-15c65f143d85c95277307da1bdd0528e)
 
-### From <= 1.5.1 to 2.0.0
+### From &lt;= 1.5.1 to 2.0.0
 
 Mandatory change:
 
@@ -80,7 +80,7 @@ Recommended changes:
   }
   ```
 
-  In `android/build.gradle` file, add `apply from: "variables.gradle"` as shown [here](https://github.com/ionic-team/capacitor/blob/master/android-template/build.gradle#L18).
+  In `android/build.gradle` file, add `apply from: "variables.gradle"` as shown [here](https://github.com/ionic-team/capacitor/blob/2.x/android-template/build.gradle#L18).
 
 - Use common variables
 

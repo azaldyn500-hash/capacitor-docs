@@ -64,27 +64,6 @@ export interface CapacitorConfig {
   webDir?: string;
 
   /**
-   * Whether to copy the Capacitor runtime bundle or not.
-   *
-   * If your app is not using a bundler, set this to `true`, then Capacitor
-   * will create a `capacitor.js` file that you'll need to add as a script in
-   * your `index.html` file.
-   *
-   * @since 1.0.0
-   * @default false
-   */
-  bundledWebRuntime?: boolean;
-
-  /**
-   * Hide or show the native logs for iOS and Android.
-   *
-   * @since 2.1.0
-   * @deprecated 3.0.0
-   * @default false
-   */
-  hideLogs?: boolean;
-
-  /**
    * The build configuration (as defined by the native app) under which Capacitor
    * will send statements to the log system. This applies to log statements in
    * native code as well as statements redirected from JavaScript (`console.debug`,
@@ -123,6 +102,22 @@ export interface CapacitorConfig {
    * @since 1.1.0
    */
   backgroundColor?: string;
+
+  /**
+   * Enable zooming within the Capacitor Web View.
+   *
+   * @default false
+   * @since 6.0.0
+   */
+  zoomEnabled?: boolean;
+
+  /**
+   * Whether to give the webview initial focus.
+   *
+   * @since 7.0.0
+   * @default true
+   */
+  initialFocus?: boolean;
 
   android?: {
     /**
@@ -163,6 +158,14 @@ export interface CapacitorConfig {
     backgroundColor?: string;
 
     /**
+     * Enable zooming within the Capacitor Web View for Android.
+     *
+     * @default false
+     * @since 6.0.0
+     */
+    zoomEnabled?: boolean;
+
+    /**
      * Enable mixed content in the Capacitor Web View for Android.
      *
      * [Mixed
@@ -199,17 +202,6 @@ export interface CapacitorConfig {
     webContentsDebuggingEnabled?: boolean;
 
     /**
-     * Hide or show the native logs for Android.
-     *
-     * Overrides global `hideLogs` option.
-     *
-     * @since 2.1.0
-     * @deprecated 3.0.0
-     * @default false
-     */
-    hideLogs?: boolean;
-
-    /**
      * The build configuration under which Capacitor will generate logs on Android.
      *
      * Overrides global `loggingBehavior` option.
@@ -241,6 +233,8 @@ export interface CapacitorConfig {
     /**
      * Whether to give the webview initial focus.
      *
+     * Overrides global `initialFocus` option.
+     *
      * @since 3.5.1
      * @default true
      */
@@ -259,6 +253,20 @@ export interface CapacitorConfig {
      * @default 60
      */
     minWebViewVersion?: number;
+
+    /**
+     * The minimum supported Huawei webview version on Android supported by your app.
+     *
+     * The minimum supported cannot be lower than version `10`, which is required for Capacitor.
+     *
+     * If the device uses a lower WebView version, an error message will be shown on Logcat.
+     * If `server.errorPath` is configured, the WebView will redirect to that file, so can be
+     * used to show a custom error.
+     *
+     * @since 4.6.4
+     * @default 10
+     */
+    minHuaweiWebViewVersion?: number;
 
     buildOptions?: {
       /**
@@ -296,6 +304,14 @@ export interface CapacitorConfig {
        * @default "AAB"
        */
       releaseType?: 'AAB' | 'APK';
+
+      /**
+       * Program to sign your build with
+       *
+       * @since 5.1.0
+       * @default "jarsigner"
+       */
+      signingType?: 'apksigner' | 'jarsigner';
     };
 
     /**
@@ -305,7 +321,16 @@ export interface CapacitorConfig {
      * @since 4.5.0
      * @default false
      */
-    useLegacyBridge: boolean;
+    useLegacyBridge?: boolean;
+
+    /**
+     * Make service worker requests go through Capacitor bridge.
+     * Set it to false to use your own handling.
+     *
+     * @since 7.0.0
+     * @default true
+     */
+    resolveServiceWorkerRequests?: boolean;
   };
 
   ios?: {
@@ -362,6 +387,14 @@ export interface CapacitorConfig {
     backgroundColor?: string;
 
     /**
+     * Enable zooming within the Capacitor Web View for iOS.
+     *
+     * @default false
+     * @since 6.0.0
+     */
+    zoomEnabled?: boolean;
+
+    /**
      * Configure the scroll view's content inset adjustment behavior.
      *
      * This will set the
@@ -404,17 +437,6 @@ export interface CapacitorConfig {
      * @since 2.0.0
      */
     allowsLinkPreview?: boolean;
-
-    /**
-     * Hide or show the native logs for iOS.
-     *
-     * Overrides global `hideLogs` option.
-     *
-     * @since 1.1.0
-     * @deprecated 3.0.0
-     * @default false
-     */
-    hideLogs?: boolean;
 
     /**
      * The build configuration under which Capacitor will generate logs on iOS.
@@ -470,6 +492,116 @@ export interface CapacitorConfig {
      * @default true
      */
     handleApplicationNotifications?: boolean;
+
+    /**
+     * Using Xcode 14.3, on iOS 16.4 and greater, enable debuggable web content for release builds.
+     *
+     * If not set, it's `true` for development builds.
+     *
+     * @since 4.8.0
+     * @default false
+     */
+    webContentsDebuggingEnabled?: boolean;
+
+    /**
+     * Whether to give the webview initial focus.
+     *
+     * Overrides global `initialFocus` option.
+     *
+     * @since 7.0.0
+     * @default true
+     */
+    initialFocus?: boolean;
+
+    buildOptions?: {
+      /**
+       * The signing style to use when building the app for distribution.
+       *
+       * @since 7.1.0
+       * @default 'automatic'
+       */
+      signingStyle?: 'automatic' | 'manual';
+      /**
+       * The method used by xcodebuild to export the archive
+       *
+       * @since 7.1.0
+       * @default 'app-store-connect'
+       */
+      exportMethod?: string;
+      /**
+       * A certificate name, SHA-1 hash, or automatic selector to use for signing for iOS builds.
+       *
+       * @since 7.1.0
+       */
+      signingCertificate?: string;
+      /**
+       * A provisioning profile name or UUID for iOS builds.
+       *
+       * @since 7.1.0
+       */
+      provisioningProfile?: string;
+    };
+  };
+
+  experimental?: {
+    /**
+     * Experimental iOS-specific configuration.
+     *
+     * These options may change or be removed in future versions.
+     *
+     * @since 8.2.0
+     */
+    ios?: {
+      /**
+       * Swift Package Manager (SPM) specific configuration.
+       *
+       * @since 8.2.0
+       */
+      spm?: {
+        /**
+         * Swift tools version to use in Package.swift header.
+         *
+         * Defines the minimum version of the Swift compiler version required to build your app.
+         * For more information check the [swift documentation](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/settingswifttoolsversion/)
+         *
+         * Warning: Capacitor does not officially support Swift 6 yet.
+         * Setting this property to 6.0 or higher may cause issues.
+         * If you need to set this property to 6.0 or higher, make sure to throughrouly test your iOS app.
+         *
+         * This setting may graduate to `ios.spm.swiftToolsVersion` in a future major release.
+         *
+         * @since 8.3.0
+         * @default '5.9'
+         * @example '6.1'
+         */
+        swiftToolsVersion?: string;
+
+        /**
+         * Define package traits for SPM plugin dependencies.
+         *
+         * This requires explicitly setting experimental.ios.spm.swiftToolsVersion
+         * to '6.1' or higher.
+         *
+         * The key is the plugin ID (e.g. `@capacitor-firebase/analytics`)
+         * and the value is an array of trait names.
+         *
+         * Packages can have default traits. If you use this property, and
+         * want to preserve the defaults, include ".defaults" in the array.
+         *
+         * This setting may graduate to `ios.spm.packageTraits` in a future major release.
+         *
+         * @since 8.3.0
+         */
+        packageTraits?: { [pluginId: string]: string[] };
+        /**
+         * Define options to apply to the package.
+         * The key is the plugin ID (e.g. `@capacitor-community/device`)
+         *
+         * @since 8.4.0
+         */
+        packageOptions?: { [pluginId: string]: PackageOptions };
+      };
+    };
   };
 
   server?: {
@@ -505,8 +637,13 @@ export interface CapacitorConfig {
     /**
      * Configure the local scheme on Android.
      *
+     * Custom schemes on Android are unable to change the URL path as of Webview 117. Changing this value from anything other than `http` or `https` can result in your
+     * application unable to resolve routing. If you must change this for some reason, consider using a hash-based url strategy, but there are no guarantees that this
+     * will continue to work long term as allowing non-standard schemes to modify query parameters and url fragments is only allowed for compatibility reasons.
+     * https://ionic.io/blog/capacitor-android-customscheme-issue-with-chrome-117
+     *
      * @since 1.2.0
-     * @default http
+     * @default https
      */
     androidScheme?: string;
 
@@ -557,6 +694,15 @@ export interface CapacitorConfig {
      * @default null
      */
     errorPath?: string;
+
+    /**
+     * Append a path to the app URL.
+     *
+     * Allows loading from other paths than the default `/index.html`.
+     * @since 7.3.0
+     * @default null
+     */
+    appStartPath?: string;
   };
 
   cordova?: {
@@ -578,12 +724,13 @@ export interface CapacitorConfig {
     preferences?: { [key: string]: string | undefined };
 
     /**
-     * List of Cordova plugins that need to be static but are not
-     * already in the static plugin list.
+     * Fail on cap update/sync if the CLI detects that a cordova plugin
+     * has uninstalled dependencies.
      *
-     * @since 3.3.0
+     * @default false
+     * @since 7.4.0
      */
-    staticPlugins?: string[];
+    failOnUninstalledPlugins?: boolean;
   };
 
   /**
@@ -608,22 +755,6 @@ export interface CapacitorConfig {
   includePlugins?: string[];
 }
 
-export interface Portal {
-  name: string;
-  webDir: string;
-  liveUpdateConfig?: LiveUpdateConfig;
-}
-
-export interface LiveUpdateConfig {
-  appId: string;
-  channel: string;
-  autoUpdateMethod: AutoUpdateMethod;
-  maxVersions?: number;
-  key?: string;
-}
-
-export type AutoUpdateMethod = 'none' | 'background';
-
 export interface PluginsConfig {
   /**
    * Plugin configuration by class name.
@@ -635,24 +766,6 @@ export interface PluginsConfig {
         [key: string]: any;
       }
     | undefined;
-
-  /**
-   * Capacitor Portals plugin configuration
-   *
-   * @since 3.5.0
-   */
-  Portals?: {
-    shell: Portal;
-    apps: Portal[];
-    liveUpdatesKey?: string;
-  };
-
-  /**
-   * Capacitor Live Updates plugin configuration
-   *
-   * @since 4.2.0
-   */
-  LiveUpdates?: LiveUpdateConfig;
 
   /**
    * Capacitor Cookies plugin configuration
@@ -681,6 +794,64 @@ export interface PluginsConfig {
      */
     enabled?: boolean;
   };
+
+  /**
+   * System Bars plugin configuration
+   *
+   * @since 8.0.0
+   */
+  SystemBars?: {
+    /**
+     * Specifies how to handle problematic insets on Android.
+     *
+     * This option is only supported on Android.
+     *
+     * `css` = Injects CSS variables (`--safe-area-inset-*`) containing correct safe area inset values into the webview.
+     *
+     * `disable` = Disable CSS variables injection.
+     *
+     * @default "css"
+     */
+    insetsHandling?: 'css' | 'disable';
+    /**
+     * The style of the text and icons of the system bars.
+     *
+     * This option is only supported on Android.
+     *
+     * @default `DEFAULT`
+     */
+    style?: string;
+
+    /**
+     * Hide the system bars on start.
+     *
+     * @default false
+     */
+    hidden?: boolean;
+
+    /**
+     * The type of status bar animation used when showing or hiding.
+     *
+     * This option is only supported on iOS.
+     *
+     * @default 'FADE'
+     *
+     */
+    animation?: 'FADE' | 'NONE';
+  };
+}
+
+export interface PackageOptions {
+  /**
+   * Create a symlink to the plugin folder instead of pointing to the plugin path.
+   * Useful when plugin names conflict.
+   */
+  symlink?: boolean;
+  /**
+   * Useful to avoid target name conflicts in dependencies
+   * [see](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/modulealiasing/)
+   */
+  moduleAliases?: { [target: string]: string };
 }
 ```
 

@@ -37,13 +37,13 @@ Sometimes, Xcode clings to old, outdated build artifacts. To start fresh, you'll
 
 To do this, open Xcode Preferences, choose the Locations tab, and click the small arrow next to your Derived Data path:
 
-![Locations](../../../static/img/v4/docs/ios/location-prefs.png)
+![Locations](../../../static/img/v6/docs/ios/location-prefs.png)
 
 This opens a Finder window to the location of Xcode's temporary Derived Data.
 
 Next, select all items in that directory and delete:
 
-![Deleting Derived Data](../../../static/img/v4/docs/ios/deleting-derived-data.png)
+![Deleting Derived Data](../../../static/img/v6/docs/ios/deleting-derived-data.png)
 
 Finally, do a rebuild in Xcode.
 
@@ -63,30 +63,9 @@ Perform a new build after running this command.
 
 Xcode sometimes gets stuck indexing forever. This unfortunate situation looks like this:
 
-![Xcode indexing](../../../static/img/v4/docs/ios/indexing.png)
+![Xcode indexing](../../../static/img/v6/docs/ios/indexing.png)
 
 The only solution is to Force Close Xcode (using Activity Monitor) and start it up again.
-
-## Apple Silicon: `ffi` Bus Error
-
-If you installed CocoaPods with `sudo gem install cocoapods` and you're using an Apple Silicon-powered Mac, you might encounter something like this when running `npx cap update`:
-
-```
-[error] Analyzing dependencies
-        /Library/Ruby/Gems/2.6.0/gems/ffi-1.15.3/lib/ffi/library.rb:275: [BUG] Bus Error at 0x0000000000000000
-        ruby 2.6.3p62 (2019-04-16 revision 67580) [universal.arm64e-darwin20]
-```
-
-This is a CocoaPods bug related to `ffi` not installing on Apple Silicon computers.
-We recommend using [Homebrew to installl CocoaPods](/docs/getting-started/environment-setup#homebrew).
-Alternatively, if you have Rosetta installed, you can install `ffi` on a `x86_64` architecture and run `pod install` using the simulated Intel architecture for the first time.
-
-```
-$ sudo arch -x86_64 gem install ffi
-$ arch -x86_64 pod install
-```
-
-After that, running Capacitor should work as expected.
 
 ## CocoaPods: Failed to connect to GitHub
 
@@ -114,6 +93,6 @@ First of all, make sure the plugin is installed and appears in the `package.json
 
 Then, run `npx cap sync ios`.
 
-Finally, check that the plugin is in `ios/App/Podfile`. If the plugin is not listed, make sure your Podfile looks like [this one](https://github.com/ionic-team/capacitor/blob/main/ios-template/App/Podfile) and run `npx cap sync` again.
+Finally, check that the plugin is in `ios/App/Podfile`. If the plugin is not listed, make sure your Podfile looks like [this one](https://github.com/ionic-team/capacitor/blob/main/ios-pods-template/App/Podfile) and run `npx cap sync` again.
 
 If still getting the "Plugin not implemented" error, make sure you don't have `WKAppBoundDomains` key in `ios/App/App/Info.plist`, that prevents Capacitor's and Plugins code from injecting. Remove the key if not needed, or if it can't be removed, add `limitsNavigationsToAppBoundDomains` to your capacitor config file with `true` value inside the `ios` object.

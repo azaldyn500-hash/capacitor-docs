@@ -39,11 +39,11 @@ You probably also want to set the Activity name to match the App, for apps that 
 
 ## Deeplinks (aka Android App Links)
 
-> For a complete Deep Links guide, [see here](/docs/guides/deep-links).
+> For a complete Deep Links guide, [see here](/guides/deep-links.md).
 
 To enable deeplinking through Android App Links, follow the official Android guide on [Adding Android App Links](https://developer.android.com/studio/write/app-link-indexing). Android Studio comes with a handy wizard for configuring App Links.
 
-Once configured, the [getLaunchUrl in the App API](/docs/apis/app#method-getLaunchUrl-0) will provide any URL the app was launched with, and the [appUrlOpen event](/docs/apis/app#method-addListener-1) will fire any time the app receives a new App Link deeplink.
+Once configured, the [getLaunchUrl in the App API](/apis/app.md#getlaunchurl) will provide any URL the app was launched with, and the [appUrlOpen event](/apis/app.md#addlistener-1) will fire any time the app receives a new App Link deeplink.
 
 ## Changing Custom URL
 
@@ -86,4 +86,4 @@ Generally, the plugin you choose to use will ask you to set a permission. Add it
 
 ## Default Permissions
 
-By default, the entire initial permissions requested for the latest version of Capacitor with the standard plugins can be found in the android-template's [AndroidManifest.xml](https://github.com/ionic-team/capacitor/blob/main/android-template/app/src/main/AndroidManifest.xml)
+By default, the entire initial permissions requested for the latest version of Capacitor with the standard plugins can be found in the android-template's [AndroidManifest.xml](https://github.com/ionic-team/capacitor/blob/2.x/android-template/app/src/main/AndroidManifest.xml)

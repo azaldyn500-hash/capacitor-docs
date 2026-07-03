@@ -28,6 +28,7 @@ module.exports = {
       ],
     },
     
+
     {
       type: 'category',
       label: 'Basics',
@@ -44,6 +45,14 @@ module.exports = {
       label: 'Upgrade Guides',
       collapsed: false,
       items: [
+        'main/updating/8-0',
+        'main/updating/plugins/8-0',
+        'main/updating/7-0',
+        'main/updating/plugins/7-0',
+        'main/updating/6-0',
+        'main/updating/plugins/6-0',
+        'main/updating/5-0',
+        'main/updating/plugins/5-0',
         'main/updating/4-0',
         'main/updating/3-0',
         'main/updating/2-0',
@@ -95,9 +104,11 @@ module.exports = {
         'main/ios/index',
         'main/ios/configuration',
         'main/ios/custom-code',
+        'main/ios/privacy-manifest',
         'main/ios/deploying-to-app-store',
         'main/ios/viewcontroller',
         'main/ios/troubleshooting',
+        'main/ios/spm'
       ],
     },
     {
@@ -108,6 +119,7 @@ module.exports = {
         'main/android/index',
         'main/android/configuration',
         'main/android/custom-code',
+        'main/android/setting-target-sdk',
         'main/android/deploying-to-google-play',
         'main/android/troubleshooting',
       ],
@@ -134,6 +146,7 @@ module.exports = {
           label: 'Plugin APIs',
           href: '/docs/apis',
         },
+        'main/reference/support-policy',
         {
           type: 'link',
           label: 'CLI',
@@ -173,6 +186,7 @@ module.exports = {
         'plugins/creating-plugins/web-guide',
         'plugins/creating-plugins/method-types',
         'plugins/creating-plugins/configuration-values',
+        'plugins/creating-plugins/plugin-hooks',
       ],
     },
     {
@@ -183,8 +197,8 @@ module.exports = {
         'plugins/tutorial/getting-started',
         'plugins/tutorial/designing-api',
         'plugins/tutorial/using-api',
-        'plugins/tutorial/code-abstraction',
         'plugins/tutorial/implementing-for-web',
+        'plugins/tutorial/code-abstraction',
         'plugins/tutorial/implementing-for-ios',
         'plugins/tutorial/implementing-for-android',
         'plugins/tutorial/packaging',
@@ -197,7 +211,7 @@ module.exports = {
       type: 'category',
       label: 'CLI Documentation',
       collapsed: false,
-      items: ['cli/index', 'cli/hooks'],
+      items: ['cli/index', 'cli/hooks', 'cli/telemetry'],
     },
     {
       type: 'category',

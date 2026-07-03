@@ -1,7 +1,7 @@
 ---
 title: App Capacitor Plugin API
 description: The App API handles high level App state and events.For example, this API emits events when the app enters and leaves the foreground, handles deeplinks, opens other apps, and manages persisted plugin state.
-editUrl: https://github.com/ionic-team/capacitor-plugins/blob/main/app/README.md
+custom_edit_url: https://github.com/ionic-team/capacitor-plugins/blob/main/app/README.md
 editApiUrl: https://github.com/ionic-team/capacitor-plugins/blob/main/app/src/definitions.ts
 sidebar_label: App
 ---
@@ -75,6 +75,49 @@ const checkAppLaunchUrl = async () => {
 };
 ```
 
+## Configuration
+
+<docgen-config>
+<!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
+
+| Prop                           | Type                 | Description                                                                    | Default            | Since |
+| ------------------------------ | -------------------- | ------------------------------------------------------------------------------ | ------------------ | ----- |
+| **`disableBackButtonHandler`** | <code>boolean</code> | Disable the plugin's default back button handling. Only available for Android. | <code>false</code> | 7.1.0 |
+
+### Examples
+
+In `capacitor.config.json`:
+
+```json
+{
+  "plugins": {
+    "App": {
+      "disableBackButtonHandler": true
+    }
+  }
+}
+```
+
+In `capacitor.config.ts`:
+
+```ts
+/// <reference types="@capacitor/app" />
+
+import { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  plugins: {
+    App: {
+      disableBackButtonHandler: true,
+    },
+  },
+};
+
+export default config;
+```
+
+</docgen-config>
+
 ## API
 
 <docgen-index>
@@ -84,12 +127,14 @@ const checkAppLaunchUrl = async () => {
 * [`getState()`](#getstate)
 * [`getLaunchUrl()`](#getlaunchurl)
 * [`minimizeApp()`](#minimizeapp)
-* [`addListener('appStateChange', ...)`](#addlistenerappstatechange)
-* [`addListener('pause', ...)`](#addlistenerpause)
-* [`addListener('resume', ...)`](#addlistenerresume)
-* [`addListener('appUrlOpen', ...)`](#addlistenerappurlopen)
-* [`addListener('appRestoredResult', ...)`](#addlistenerapprestoredresult)
-* [`addListener('backButton', ...)`](#addlistenerbackbutton)
+* [`getAppLanguage()`](#getapplanguage)
+* [`toggleBackButtonHandler(...)`](#togglebackbuttonhandler)
+* [`addListener('appStateChange', ...)`](#addlistenerappstatechange-)
+* [`addListener('pause', ...)`](#addlistenerpause-)
+* [`addListener('resume', ...)`](#addlistenerresume-)
+* [`addListener('appUrlOpen', ...)`](#addlistenerappurlopen-)
+* [`addListener('appRestoredResult', ...)`](#addlistenerapprestoredresult-)
+* [`addListener('backButton', ...)`](#addlistenerbackbutton-)
 * [`removeAllListeners()`](#removealllisteners)
 * [Interfaces](#interfaces)
 * [Type Aliases](#type-aliases)
@@ -97,7 +142,7 @@ const checkAppLaunchUrl = async () => {
 </docgen-index>
 
 <docgen-api>
-
+<!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
 ### exitApp()
 
@@ -175,10 +220,44 @@ Only available for Android.
 --------------------
 
 
+### getAppLanguage()
+
+```typescript
+getAppLanguage() => Promise<AppLanguageCode>
+```
+
+Get the app specific language locale code.
+
+**Returns:** <code>Promise&lt;<a href="#applanguagecode">AppLanguageCode</a>&gt;</code>
+
+**Since:** 8.1.0
+
+--------------------
+
+
+### toggleBackButtonHandler(...)
+
+```typescript
+toggleBackButtonHandler(options: ToggleBackButtonHandlerOptions) => Promise<void>
+```
+
+Enables or disables the plugin's back button handling during runtime.
+
+Only available for Android.
+
+| Param         | Type                                                                                      |
+| ------------- | ----------------------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#togglebackbuttonhandleroptions">ToggleBackButtonHandlerOptions</a></code> |
+
+**Since:** 7.1.0
+
+--------------------
+
+
 ### addListener('appStateChange', ...)
 
 ```typescript
-addListener(eventName: 'appStateChange', listenerFunc: StateChangeListener) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'appStateChange', listenerFunc: StateChangeListener) => Promise<PluginListenerHandle>
 ```
 
 Listen for changes in the app or the activity states.
@@ -193,7 +272,7 @@ On Web it's fired when the document's visibilitychange gets fired.
 | **`eventName`**    | <code>'appStateChange'</code>                                       |
 | **`listenerFunc`** | <code><a href="#statechangelistener">StateChangeListener</a></code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 **Since:** 1.0.0
 
@@ -203,7 +282,7 @@ On Web it's fired when the document's visibilitychange gets fired.
 ### addListener('pause', ...)
 
 ```typescript
-addListener(eventName: 'pause', listenerFunc: () => void) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'pause', listenerFunc: () => void) => Promise<PluginListenerHandle>
 ```
 
 Listen for when the app or the activity are paused.
@@ -217,7 +296,7 @@ On Web it's fired when the document's visibilitychange gets fired and document.h
 | **`eventName`**    | <code>'pause'</code>       |
 | **`listenerFunc`** | <code>() =&gt; void</code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 **Since:** 4.1.0
 
@@ -227,7 +306,7 @@ On Web it's fired when the document's visibilitychange gets fired and document.h
 ### addListener('resume', ...)
 
 ```typescript
-addListener(eventName: 'resume', listenerFunc: () => void) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'resume', listenerFunc: () => void) => Promise<PluginListenerHandle>
 ```
 
 Listen for when the app or activity are resumed.
@@ -242,7 +321,7 @@ On Web it's fired when the document's visibilitychange gets fired and document.h
 | **`eventName`**    | <code>'resume'</code>      |
 | **`listenerFunc`** | <code>() =&gt; void</code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 **Since:** 4.1.0
 
@@ -252,7 +331,7 @@ On Web it's fired when the document's visibilitychange gets fired and document.h
 ### addListener('appUrlOpen', ...)
 
 ```typescript
-addListener(eventName: 'appUrlOpen', listenerFunc: URLOpenListener) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'appUrlOpen', listenerFunc: URLOpenListener) => Promise<PluginListenerHandle>
 ```
 
 Listen for url open events for the app. This handles both custom URL scheme links as well
@@ -263,7 +342,7 @@ as URLs your app handles (Universal Links on iOS and App Links on Android)
 | **`eventName`**    | <code>'appUrlOpen'</code>                                   |
 | **`listenerFunc`** | <code><a href="#urlopenlistener">URLOpenListener</a></code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 **Since:** 1.0.0
 
@@ -273,7 +352,7 @@ as URLs your app handles (Universal Links on iOS and App Links on Android)
 ### addListener('appRestoredResult', ...)
 
 ```typescript
-addListener(eventName: 'appRestoredResult', listenerFunc: RestoredListener) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'appRestoredResult', listenerFunc: RestoredListener) => Promise<PluginListenerHandle>
 ```
 
 If the app was launched with previously persisted plugin call data, such as on Android
@@ -303,7 +382,7 @@ Activities (for example, Camera) to have this event and process handled.
 | **`eventName`**    | <code>'appRestoredResult'</code>                              |
 | **`listenerFunc`** | <code><a href="#restoredlistener">RestoredListener</a></code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 **Since:** 1.0.0
 
@@ -313,7 +392,7 @@ Activities (for example, Camera) to have this event and process handled.
 ### addListener('backButton', ...)
 
 ```typescript
-addListener(eventName: 'backButton', listenerFunc: BackButtonListener) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'backButton', listenerFunc: BackButtonListener) => Promise<PluginListenerHandle>
 ```
 
 Listen for the hardware back button event (Android only). Listening for this event will disable the
@@ -325,7 +404,7 @@ If you want to close the app, call `App.exitApp()`.
 | **`eventName`**    | <code>'backButton'</code>                                         |
 | **`listenerFunc`** | <code><a href="#backbuttonlistener">BackButtonListener</a></code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
 **Since:** 1.0.0
 
@@ -370,6 +449,20 @@ Remove all native listeners for this plugin
 | Prop      | Type                | Description                   | Since |
 | --------- | ------------------- | ----------------------------- | ----- |
 | **`url`** | <code>string</code> | The url used to open the app. | 1.0.0 |
+
+
+#### AppLanguageCode
+
+| Prop        | Type                | Description                           | Since |
+| ----------- | ------------------- | ------------------------------------- | ----- |
+| **`value`** | <code>string</code> | Two or Three character language code. | 8.1.0 |
+
+
+#### ToggleBackButtonHandlerOptions
+
+| Prop          | Type                 | Description                                                          | Since |
+| ------------- | -------------------- | -------------------------------------------------------------------- | ----- |
+| **`enabled`** | <code>boolean</code> | Indicates whether to enable or disable default back button handling. | 7.1.0 |
 
 
 #### PluginListenerHandle

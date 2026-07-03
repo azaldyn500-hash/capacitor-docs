@@ -36,7 +36,7 @@ It can also help with many other seemingly random issues, so running "Sync Proje
 
 Cleaning and rebuilding can fix a number of build issues:
 
-![Android Clean and Build](../../../static/img/v4/docs/android/clean-rebuild.png)
+![Android Clean and Build](../../../static/img/v6/docs/android/clean-rebuild.png)
 
 ### Invalidate Caches/Restart
 
@@ -44,7 +44,7 @@ If you're confident you fixed an issue, but Android Studio or Gradle doesn't agr
 
 That can be done easily from the File menu:
 
-![Android Invalidate Caches](../../../static/img/v4/docs/android/invalidate-caches.png)
+![Android Invalidate Caches](../../../static/img/v6/docs/android/invalidate-caches.png)
 
 ## Error: "package android.support.\* does not exist"
 
@@ -66,13 +66,13 @@ periodically after updating dependencies and changing project settings.
 
 To manually sync Gradle, open File -> Sync Project with Gradle Files from the main menu bar:
 
-![Sync Gradle](../../../static/img/v4/docs/android/sync-gradle.png)
+![Sync Gradle](../../../static/img/v6/docs/android/sync-gradle.png)
 
 ## Error: "APK Can't be installed"
 
 An APK not installing to an Emulator or Device is often due to having an existing app with the same package name. You may see an error like this when trying to run your app:
 
-![Android APK Failed](../../../static/img/v4/docs/android/apk-failed.png)
+![Android APK Failed](../../../static/img/v6/docs/android/apk-failed.png)
 
 The solution is to remove any old apps and make sure your package name is up to date in `AndroidManifest.xml` and not conflicting with other apps you are developing.
 
@@ -84,12 +84,12 @@ This error may occur when using the `run` command if the `JAVA_HOME` environment
 
 To resolve, set `JAVA_HOME` as an environment or system variable using the path found in Android Studio under Preferences > Build, Execution, Deployment, Build Tools > Gradle > Gradle JDK.
 
-![JDK Path in Android Studio](../../../static/img/v4/docs/android/jdk-path.png)
+![JDK Path in Android Studio](../../../static/img/v6/docs/android/jdk-path.png)
 
 On Mac, this can be updated in your `.zshrc` or `.bashrc` file or exported in your environment.
 
 ```bash
-export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/Contents/Home"
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 ```
 
 On Windows, you can set `JAVA_HOME` as a System Variable under your Environment Variables settings.
@@ -122,7 +122,7 @@ If still getting the "Plugin not implemented" error, make sure you are not using
 
 ## Using Proguard
 
-ProGuard is a tool used to shrink, obfuscate, and reduce the size of your app. It is enabled by setting the `minifyEnabled` option in `build.gradle` to `true`. This process can sometimes lead to issues in Capacitor when using a plugin or some custom native code that relies on its code being being readable at run time, such as code reflection. ProGuard scans code to try and optimize and shink the size of an app and sometimes this process can remove classes or methods that are important for the functionality of a plugin.
+ProGuard is a tool used to shrink, obfuscate, and reduce the size of your app. It is enabled by setting the `minifyEnabled` option in `build.gradle` to `true`. This process can sometimes lead to issues in Capacitor when using a plugin or some custom native code that relies on its code being being readable at run time, such as code reflection. ProGuard scans code to try and optimize and shrink the size of an app and sometimes this process can remove classes or methods that are important for the functionality of a plugin.
 
 As of Capacitor v3.2.3 there are ProGuard rules included in Capacitor that cover the core functionality of Capacitor plugins, permissions, and activity results. If you are using an earlier version of Capacitor than v3.2.3, add [the following rules](https://github.com/ionic-team/capacitor/blob/main/android/capacitor/proguard-rules.pro) to your Android project's `proguard-rules.pro` file. Those rules should resolve problems with any of the core Capacitor features and core plugins.
 

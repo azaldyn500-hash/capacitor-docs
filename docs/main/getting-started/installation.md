@@ -8,14 +8,14 @@ slug: /getting-started
 
 You can create a new Capacitor application or add Capacitor to your existing web project. This can be done via CLI or using the [VS Code extension](vscode/getting-started).
 
-Remember to make sure your [environment is set up](/docs/getting-started/environment-setup) for the platforms you will be building for.
+Remember to make sure your [environment is set up](/main/getting-started/environment-setup.md) for the platforms you will be building for.
 
 ## Create a new Capacitor app
 
 The `@capacitor/create-app` package can be used to quickly create a Capacitor application. You can run the following command in an empty directory to scaffold a new Capacitor application.
 
 ```bash
-npm init @capacitor/app
+npm init @capacitor/app@latest
 ```
 
 ## Add Capacitor to your web app
@@ -33,7 +33,7 @@ Your `index.html` file must have a `<head>` tag in order to properly inject Capa
 
 ### Install Capacitor
 
-In the root of your app, install Capacitor's main npm depdencies: the core JavaScript runtime and the command line interface (CLI).
+In the root of your app, install Capacitor's main npm dependencies: the core JavaScript runtime and the command line interface (CLI).
 
 ```bash
 npm i @capacitor/core
@@ -48,7 +48,11 @@ Then, initialize Capacitor using the CLI questionnaire:
 npx cap init
 ```
 
-The CLI will ask you a few questions, starting with your app name, and the package ID you would like to use for your app.
+The CLI will ask you a few questions, starting with your app name, and the package ID you would like to use for your app. It will create the capacitor-config file with these configuration details, including the expected output directory for the build process of your bundler (e.g. `www` for Angular, `build` for React, `public` for Vue, etc.).
+
+:::info
+You can customize the folder used by Capacitor by modifying the `webDir` variable in your [Capacitor Config](/docs/config) file that is created during `npx cap init`. Please note that Capacitor will try to detect the default for your web-project by checking the framework you are using. Nevertheless, it is a good idea to cross-check this configuration variable when having issues syncing your first build.
+:::
 
 ### Create your Android and iOS projects
 
@@ -73,18 +77,14 @@ Once you've created your native projects, you can sync your web application to y
 npx cap sync
 ```
 
-`npx cap sync` will copy your built web application, by default `www`, to your native project and install the native projects dependencies.
-
-:::info
-You can customize what folder is copied over by modifying the `webDir` variable in your [Capacitor Config](/docs/config) file that is created during `npx cap init`.
-:::
+`npx cap sync` will copy your built web bundle expected to be found in `webDir` of the [Capacitor Config](/docs/config) file to your native project and install the native project's dependencies.
 
 ## Where to go next
 
 With your environment setup, and your project structure set up properly, you're ready to go! You can follow any of the links below if you need more specific documentation.
 
-[Get started with iOS &#8250;](/docs/ios)
+[Get started with iOS &#8250;](/main/ios/index.md)
 
-[Get started with Android &#8250;](/docs/android)
+[Get started with Android &#8250;](/main/android/index.md)
 
-[Developer Workflow Guide &#8250;](/docs/basics/workflow)
+[Developer Workflow Guide &#8250;](/main/basics/workflow.md)
